@@ -23,6 +23,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -59,7 +60,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @Composable
-fun SwipeCards(navController: NavController) {
+fun SwipeCards(navController: NavController, vm: TCViewModel) {
+    val userData = vm.userData.value
     TransparentSystemBars()
     Column(
         modifier = Modifier
@@ -80,6 +82,9 @@ fun SwipeCards(navController: NavController) {
             var hint by remember {
                 mutableStateOf("Arreste para o lado ou pressione o botão")
             }
+            if(states.all { it.second.swipedDirection != null }) {
+                hint = "Não há mais perfis para mostrar"
+            }
 
             Hint(hint)
 
@@ -88,8 +93,7 @@ fun SwipeCards(navController: NavController) {
                 Modifier
                     .padding(24.dp)
                     .fillMaxSize()
-                    .aspectRatio(1f)
-                    .align(Alignment.Center)) {
+                    .aspectRatio(1f)) {
                 states.forEach { (matchProfile, state) ->
                     if (state.swipedDirection == null) {
                         ProfileCard(
@@ -112,12 +116,33 @@ fun SwipeCards(navController: NavController) {
                         )
                     }
                     LaunchedEffect(matchProfile, state.swipedDirection) {
-                        if (state.swipedDirection != null) {
-                            hint = "You swiped ${stringFrom(state.swipedDirection!!)}"
+                     //   if (state.swipedDirection != null) {
+                        //      hint = "You swiped ${stringFrom(state.swipedDirection!!)}"
+                        // }
+                        if (state.swipedDirection == Direction.Right) {
+
+                            val conditionsMet = listOf(
+                                userData?.university == matchProfile.university.toString(),
+                                userData?.field == matchProfile.field.toString(),
+                                userData?.hobbie == matchProfile.hobbie.toString(),
+                                userData?.city == matchProfile.city.toString(),
+                            ).count { it }
+
+                            if (conditionsMet >= 2 && matchProfile.available != Available.NAO) {
+                                hint = "Você deu match com ${matchProfile.name}"
+                                Log.d("MATCH", "matchProfile.name")
+                                Log.d("MATCH", "OCORREU UM MATCH")
+                            }
+                            else {
+                                hint = ""
+                                Log.d("MATCH", "NÃO OCORREU UM MATCH")
+                            }
+                           // hint = ""
                         }
                     }
                 }
             }
+
             Row(
                 Modifier
                     .align(Alignment.BottomCenter)
@@ -146,6 +171,7 @@ fun SwipeCards(navController: NavController) {
                                 }?.second
 
                             last?.swipe(Direction.Right)
+                            Log.d("MATCH", "OCORREU UM MATCH")
                         }
                     },
                     icon = Icons.Rounded.Favorite
@@ -189,11 +215,15 @@ private fun ProfileCard(
                 contentDescription = null)
             Scrim(Modifier.align(Alignment.BottomCenter))
             Column(Modifier.align(Alignment.BottomStart)) {
-                Text(text = matchProfile.name,
+                Text(text = matchProfile.name + " | " + matchProfile.assignment,
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(10.dp))
+                Text(text = matchProfile.bio,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(horizontal = 10.dp))
             }
         }
     }
@@ -250,3 +280,4 @@ fun Scrim(modifier: Modifier = Modifier) {
             .height(180.dp)
             .fillMaxWidth())
 }
+

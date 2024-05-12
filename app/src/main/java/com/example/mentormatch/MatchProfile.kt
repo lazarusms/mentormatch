@@ -5,25 +5,35 @@ import com.example.mentormatch.R
 
 data class MatchProfile(
     val name: String,
+    val bio: String,
     @DrawableRes val drawableResId: Int,
-    val faculdade: Faculdade,
+    val university: University,
+    val field: Field,
+    val hobbie: Hobbie,
+    val city: City,
+    val available: Available,
+    val assignment: Assignment
 )
 
 val profiles = listOf(
-    MatchProfile("TESTE Bachman", R.drawable.erlich, Faculdade.FIAP),
-    MatchProfile("Richard Hendricks", R.drawable.richard, Faculdade.UNICID),
-    MatchProfile("Laurie Bream", R.drawable.laurie, Faculdade.UNICID),
-    MatchProfile("Russ Hanneman", R.drawable.russ, Faculdade.UNICID),
-    MatchProfile("Dinesh Chugtai", R.drawable.dinesh, Faculdade.UNICID),
-    MatchProfile("Monica Hall", R.drawable.monica, Faculdade.UNICID),
-    MatchProfile("Bertram Gilfoyle", R.drawable.gilfoyle, Faculdade.UNICID),
-
-    MatchProfile("Peter Gregory", R.drawable.peter, Faculdade.UNICID),
-    MatchProfile("Jared Dunn", R.drawable.jared, Faculdade.UNICID),
-    MatchProfile("Nelson Bighetti", R.drawable.big_head, Faculdade.UNICID),
-    MatchProfile("Gavin Belson", R.drawable.gavin, Faculdade.UNICID),
-    MatchProfile("Jian Yang", R.drawable.jian, Faculdade.UNICID),
-    MatchProfile("Jack Barker", R.drawable.barker, Faculdade.UNICID),
+    MatchProfile("Erlich Bachman", "Formado em ADS pela PUC, programo em Java e meu hobbie é comer. Estou disponível.", R.drawable.erlich, University.PUC, Field.TECNOLOGIA, Hobbie.COMER, City.COTIA, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Richard Hendricks", "Estudante de matemática na FIAP, adoro ler. Atualmente, não estou disponível.", R.drawable.richard, University.FIAP, Field.TECNOLOGIA, Hobbie.PROGRAMAR, City.OSASCO, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Laurie Bream", "Estudante de design na FIAP, adoro viajar. Estou disponível.", R.drawable.laurie, University.FIAP, Field.DESIGN, Hobbie.VIAJAR, City.SAOPAULO, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Russ Hanneman", "Formado em economia pela PUC, meu hobbie é programar. Estou disponível.", R.drawable.russ, University.PUC, Field.ECONOMIA, Hobbie.PROGRAMAR, City.COTIA, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Dinesh Chugtai", "Estudante de design na FIAP, adoro programar. Estou disponível.", R.drawable.dinesh, University.FIAP, Field.DESIGN, Hobbie.PROGRAMAR, City.SAOPAULO, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Monica Hall", "Formado em tecnologia na FIAP, adoro ler. Atualmente, não estou disponível.", R.drawable.monica, University.FIAP, Field.TECNOLOGIA, Hobbie.LER, City.SAOPAULO, Available.NAO, Assignment.MENTOR),
+    MatchProfile("Bertram Gilfoyle", "Formado em matemática na USP, adoro comer. Estou disponível.", R.drawable.gilfoyle, University.USP, Field.MATEMATICA, Hobbie.COMER, City.COTIA, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Peter Gregory", "Estudante de matemática na USP, adoro viajar. Atualmente, não estou disponível.", R.drawable.peter, University.USP, Field.MATEMATICA, Hobbie.VIAJAR, City.OSASCO, Available.NAO, Assignment.MENTOR),
+    MatchProfile("Jared Dunn", "Formado em economia pela PUC, adoro viajar. Estou disponível.", R.drawable.jared, University.PUC, Field.ECONOMIA, Hobbie.VIAJAR, City.COTIA, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Nelson Bighetti", "Estudante de design na PUC, adoro programar. Estou disponível.", R.drawable.big_head, University.PUC, Field.DESIGN, Hobbie.PROGRAMAR, City.SAOPAULO, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Gavin Belson", "Estudante de tecnologia na USP, adoro ler. Estou disponível.", R.drawable.gavin, University.USP, Field.TECNOLOGIA, Hobbie.LER, City.SAOPAULO, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Jian Yang", "Formado em matemática na PUC, adoro comer. Atualmente, não estou disponível.", R.drawable.jian, University.PUC, Field.MATEMATICA, Hobbie.COMER, City.COTIA, Available.NAO, Assignment.MENTOR),
+    MatchProfile("Jack Barker", "Estudante de design na FIAP, adoro viajar. Estou disponível.", R.drawable.barker, University.FIAP, Field.DESIGN, Hobbie.VIAJAR, City.SAOPAULO, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Bertram Gilfoyle", "Estudante de tecnologia na FIAP, adoro comer. Estou disponível.", R.drawable.gilfoyle, University.FIAP, Field.TECNOLOGIA, Hobbie.COMER, City.COTIA, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Peter Gregory", "Formado em tecnologia na USP, adoro viajar. Estou disponível.", R.drawable.peter, University.USP, Field.TECNOLOGIA, Hobbie.VIAJAR, City.OSASCO, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Jared Dunn", "Estudante de tecnologia na FIAP, adoro programar. Estou disponível.", R.drawable.jared, University.FIAP, Field.TECNOLOGIA, Hobbie.PROGRAMAR, City.SAOPAULO, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Nelson Bighetti", "Formado em design na PUC, adoro programar. Estou disponível.", R.drawable.big_head, University.PUC, Field.DESIGN, Hobbie.PROGRAMAR, City.COTIA, Available.SIM, Assignment.APRENDIZ),
+    MatchProfile("Gavin Belson", "Formado em tecnologia na USP, adoro ler. Estou disponível.", R.drawable.gavin, University.USP, Field.TECNOLOGIA, Hobbie.LER, City.SAOPAULO, Available.SIM, Assignment.MENTOR),
+    MatchProfile("Jian Yang", "Formado em matemática na FIAP, adoro comer. Atualmente, não estou disponível.", R.drawable.jian, University.FIAP, Field.MATEMATICA, Hobbie.COMER, City.COTIA, Available.NAO, Assignment.MENTOR),
+    MatchProfile("Jack Barker", "Estudante de design na FIAP, adoro viajar. Estou disponível.", R.drawable.barker, University.FIAP, Field.DESIGN, Hobbie.VIAJAR, City.SAOPAULO, Available.SIM, Assignment.APRENDIZ),
 )
-
-enum class Faculdade { FIAP,UNICID, USP, UNINOVE, TESTE }

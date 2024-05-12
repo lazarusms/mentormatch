@@ -9,7 +9,8 @@ data class UserData(
     var university: String? = "",
     var hobbie:     String? = "",
     var city:       String? = "",
-    var available:  String? = ""
+    var available:  String? = "",
+    var bio:        String? = "",
 
 ) {
     fun toMap() = mapOf(
@@ -21,6 +22,7 @@ data class UserData(
         "university" to university,
         "hobbie"     to hobbie,
         "city"       to city,
-        "available"  to available
+        "available"  to available,
+        "bio"        to bio
     )
 }

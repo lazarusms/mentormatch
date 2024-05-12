@@ -53,7 +53,7 @@ fun SwipeAppNavigation() {
     
     NavHost(navController = navController, startDestination = DestinationScreen.Signup.route) {
         composable(DestinationScreen.Swipe.route) {
-            SwipeCards(navController)
+            SwipeCards(navController, vm)
         }
         composable(DestinationScreen.Profile.route) {
             ProfileScreen(navController, vm)

@@ -93,3 +93,26 @@ fun CommonImage(
     if (painter.state is ImagePainter.State.Loading)
         CommonProgressSpinner()
 }
+
+enum class Field {
+    TECNOLOGIA, MATEMATICA, ECONOMIA, DESIGN
+}
+
+enum class University {
+    FIAP, USP, PUC
+}
+
+enum class Hobbie {
+    LER, PROGRAMAR, COMER, VIAJAR
+}
+
+enum class City {
+    SAOPAULO, COTIA, OSASCO
+}
+enum class Available {
+    SIM, NAO
+}
+enum class Assignment {
+    APRENDIZ, MENTOR
+}
+

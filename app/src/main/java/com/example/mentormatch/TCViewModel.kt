@@ -101,7 +101,8 @@ class TCViewModel @Inject constructor(
         university: University? = null,
         hobbie: Hobbie?         = null,
         city: City?             = null,
-        available: Available?   = null
+        available: Available?   = null,
+        bio: String?            = null
     ) {
         val uid = auth.currentUser?.uid
         val userData = UserData(
@@ -113,7 +114,8 @@ class TCViewModel @Inject constructor(
             university = university?.toString() ?: userData.value?.university,
             hobbie = hobbie?.toString() ?: userData.value?.hobbie,
             city = city?.toString() ?: userData.value?.city,
-            available = available?.toString() ?: userData.value?.available
+            available = available?.toString() ?: userData.value?.available,
+            bio = bio ?: userData.value?.bio
 
         )
         uid?.let { uid ->
@@ -179,7 +181,8 @@ class TCViewModel @Inject constructor(
         university: University?,
         hobbie: Hobbie?,
         city: City?,
-        available: Available?
+        available: Available?,
+        bio:       String,
     ) {
         createOrUpdateProfile(
             name = name,
@@ -188,7 +191,8 @@ class TCViewModel @Inject constructor(
             university = university,
             hobbie = hobbie,
             city = city,
-            available = available
+            available = available,
+            bio = bio
         )
     }
     fun uploadProfileImage(uri: Uri) {

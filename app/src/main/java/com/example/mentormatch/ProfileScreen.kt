@@ -41,26 +41,6 @@ import com.example.mentormatch.DestinationScreen
 import com.example.mentormatch.TCViewModel
 import com.example.mentormatch.navigateTo
 
-enum class Field {
-    TECNOLOGIA, MATEMATICA, HISTORIA, ECONOMIA, DESIGN
-}
-
-enum class University {
-    FIAP, USP, UNICID, PUC, UNINOVE
-}
-
-enum class Hobbie {
-    CORRER, LER, PROGRAMAR, COMER, VIAJAR
-}
-
-enum class City {
-    SAOPAULO, COTIA, OSASCO, CARAPICUIBA, BARUERI
-}
-enum class Available {
-    SIM, NAO
-}
-
-
 @Composable
 fun ProfileScreen(navController: NavController, vm: TCViewModel) {
     val inProgress = vm.inProgress.value
@@ -90,6 +70,7 @@ fun ProfileScreen(navController: NavController, vm: TCViewModel) {
         var hobbie by rememberSaveable { mutableStateOf(Hobbie.valueOf(hob)) }
         var city by rememberSaveable { mutableStateOf(City.valueOf(ct)) }
         var available by rememberSaveable { mutableStateOf(Available.valueOf(av)) }
+        var bio by rememberSaveable { mutableStateOf(userData?.bio ?: "") }
 
         val scrollState = rememberScrollState()
 
@@ -107,6 +88,7 @@ fun ProfileScreen(navController: NavController, vm: TCViewModel) {
                 hobbie = hobbie,
                 city = city,
                 available = available,
+                bio = bio,
                 onNameChange = { name = it },
                 onUsernameChange = { username = it },
                 onFieldChange = { field = it },
@@ -114,8 +96,9 @@ fun ProfileScreen(navController: NavController, vm: TCViewModel) {
                 onHobbieChange = { hobbie = it },
                 onCityChange = { city = it },
                 onAvailableChange = { available = it },
+                onBioChange = { bio = it },
                 onSave = {
-                    vm.updateProfileData(name, username, field, university, hobbie, city, available )
+                    vm.updateProfileData(name, username, field, university, hobbie, city, available, bio )
                 },
                 onBack = { navigateTo(navController, DestinationScreen.Swipe.route) },
                 onLogout = {
@@ -144,6 +127,7 @@ fun ProfileContent(
     hobbie: Hobbie,
     city: City,
     available: Available,
+    bio: String,
     onNameChange: (String) -> Unit,
     onUsernameChange: (String) -> Unit,
     onFieldChange: (Field) -> Unit,
@@ -151,6 +135,7 @@ fun ProfileContent(
     onHobbieChange: (Hobbie) -> Unit,
     onCityChange: (City) -> Unit,
     onAvailableChange: (Available) -> Unit,
+    onBioChange: (String) -> Unit,
     onSave: () -> Unit,
     onBack: () -> Unit,
     onLogout: () -> Unit
@@ -207,6 +192,25 @@ fun ProfileContent(
                 )
             )
         }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "Bio", modifier = Modifier.width(100.dp))
+            TextField(
+                value = bio,
+                onValueChange = onBioChange,
+                modifier = Modifier
+                    .height(150.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.Black,
+                    containerColor = Color.Transparent
+                ),
+                singleLine = false
+            )
+        }
 
         Row(
             modifier = Modifier
@@ -229,16 +233,6 @@ fun ProfileContent(
                         modifier = Modifier
                             .padding(4.dp)
                             .clickable { onFieldChange(Field.DESIGN)})
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
-                        selected = field == Field.TECNOLOGIA,
-                        onClick = { onFieldChange(Field.TECNOLOGIA)})
-                    Text(
-                        text = "Tecnologia",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable { onFieldChange(Field.DESIGN) })
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(
@@ -293,16 +287,6 @@ fun ProfileContent(
                         onClick = { onUniversityChange(University.FIAP) })
                     Text(
                         text = "FIAP",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable { onUniversityChange(University.FIAP) })
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
-                        selected = university == University.UNICID,
-                        onClick = { onUniversityChange(University.UNICID) })
-                    Text(
-                        text = "UNICID",
                         modifier = Modifier
                             .padding(4.dp)
                             .clickable { onUniversityChange(University.FIAP) })
@@ -420,16 +404,6 @@ fun ProfileContent(
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(
-                        selected = city == City.BARUERI,
-                        onClick = { onCityChange(City.BARUERI) })
-                    Text(
-                        text = "Barueri",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable {onCityChange(City.BARUERI) })
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
                         selected = city == City.OSASCO,
                         onClick = { onCityChange(City.OSASCO) })
                     Text(
@@ -440,6 +414,43 @@ fun ProfileContent(
                 }
             }
         }
+        CommonDivider()
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(
+                text = "Disponível:", modifier = Modifier
+                    .width(100.dp)
+                    .padding(8.dp)
+            )
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = available == Available.SIM,
+                        onClick = { onAvailableChange(Available.SIM) })
+                    Text(
+                        text = "Sim",
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .clickable { onAvailableChange(Available.SIM) })
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = available == Available.NAO,
+                        onClick = { onAvailableChange(Available.NAO) })
+                    Text(
+                        text = "Não",
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .clickable { onAvailableChange(Available.NAO) })
+                }
+            }
+        }
+
 
         Row(
             modifier = Modifier
