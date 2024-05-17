@@ -26,3 +26,20 @@ data class UserData(
         "bio"        to bio
     )
 }
+
+data class PreferencesData(
+    var userId:               String? = "",
+    var localPreference:      String? = "",
+    var fieldPreference:      String? = "",
+    var assignmentPreference: String? = "",
+    var availablePreference:  String? = "",
+
+    ) {
+    fun toMap() = mapOf(
+        "userId"               to userId,
+        "localPreference"      to localPreference,
+        "fieldPreference"      to fieldPreference,
+        "assignmentPreference" to assignmentPreference,
+        "availablePreference"  to availablePreference
+    )
+}

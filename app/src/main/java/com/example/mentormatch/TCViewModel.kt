@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.mentormatch.data.COLLECTION_PREFERENCES
 import com.example.mentormatch.data.COLLECTION_USER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -18,6 +19,7 @@ import java.lang.Exception
 import java.util.Calendar
 import java.util.UUID
 import com.example.mentormatch.data.Event
+import com.example.mentormatch.data.PreferencesData
 import javax.inject.Inject
 import com.example.mentormatch.data.UserData
 
@@ -32,6 +34,7 @@ class TCViewModel @Inject constructor(
     val popupNotification = mutableStateOf<Event<String>?>(null)
     val signedIn = mutableStateOf(false)
     val userData = mutableStateOf<UserData?>(null)
+    val preferencesData = mutableStateOf<PreferencesData?>(null)
 
     init {
     //    auth.signOut()
@@ -80,6 +83,21 @@ class TCViewModel @Inject constructor(
                     inProgress.value = false
                   //  populateCards()
                   //  populateChats()
+                }
+            }
+    }
+    private fun getPreferencesData(uid: String) {
+        inProgress.value = true
+        db.collection(COLLECTION_PREFERENCES).document(uid)
+            .addSnapshotListener { value, error ->
+                if (error != null)
+                    handleException(error, "Cannot retrieve user data")
+                if (value != null) {
+                    val preferences = value.toObject<PreferencesData>()
+                    preferencesData.value = preferences
+                   // inProgress.value = false
+                    //  populateCards()
+                    //  populateChats()
                 }
             }
     }
@@ -144,6 +162,49 @@ class TCViewModel @Inject constructor(
                 }
         }
     }
+    private fun createOrUpdatePreferences(
+        localPreference:      City? = null,
+        fieldPreference:      Field? = null,
+        assignmentPreference: Assignment? = null,
+        availablePreference:  Available? = null,
+    ) {
+        val uid = auth.currentUser?.uid
+        val preferencesData = PreferencesData(
+            userId = uid,
+            localPreference = localPreference.toString() ?: preferencesData.value?.localPreference,
+            fieldPreference = fieldPreference.toString() ?: preferencesData.value?.fieldPreference,
+            assignmentPreference = assignmentPreference.toString() ?: preferencesData.value?.assignmentPreference,
+            availablePreference = availablePreference.toString() ?: preferencesData.value?.availablePreference,
+
+
+        )
+        uid?.let { uid ->
+           // inProgress.value = true
+            db.collection(COLLECTION_PREFERENCES).document(uid)
+                .get()
+                .addOnSuccessListener {
+                    if (it.exists())
+                        it.reference.update(preferencesData.toMap())
+                            .addOnSuccessListener {
+                                //   this.userData.value = userData
+                                inProgress.value = false
+                                // populateCards()
+                            }
+                            .addOnFailureListener {
+                                handleException(it, "Cannot update user")
+                            }
+                    else {
+                        db.collection(COLLECTION_PREFERENCES).document(uid).set(preferencesData)
+                       // inProgress.value = false
+                        getPreferencesData(uid)
+                    }
+                }
+                .addOnFailureListener {
+                    handleException(it, "Cannot create user")
+                }
+        }
+    }
+
 
     fun onLogin(email: String, pass: String) {
         if (email.isEmpty() or pass.isEmpty()) {
@@ -193,6 +254,20 @@ class TCViewModel @Inject constructor(
             city = city,
             available = available,
             bio = bio
+        )
+    }
+
+    fun updatePreferencesData(
+        localPreference: City,
+        fieldPreference: Field,
+        assignmentPreference: Assignment,
+        availablePreference: Available,
+    ) {
+        createOrUpdatePreferences(
+            localPreference = localPreference,
+            fieldPreference = fieldPreference,
+            assignmentPreference = assignmentPreference,
+            availablePreference = availablePreference,
         )
     }
     fun uploadProfileImage(uri: Uri) {
