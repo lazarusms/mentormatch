@@ -42,6 +42,7 @@ class TCViewModel @Inject constructor(
         signedIn.value = currentUser != null
         currentUser?.uid?.let { uid ->
             getUserData(uid)
+            getPreferencesData(uid)
         }
     }
 
@@ -95,7 +96,7 @@ class TCViewModel @Inject constructor(
                 if (value != null) {
                     val preferences = value.toObject<PreferencesData>()
                     preferencesData.value = preferences
-                   // inProgress.value = false
+                    inProgress.value = false
                     //  populateCards()
                     //  populateChats()
                 }
@@ -179,7 +180,7 @@ class TCViewModel @Inject constructor(
 
         )
         uid?.let { uid ->
-           // inProgress.value = true
+           inProgress.value = true
             db.collection(COLLECTION_PREFERENCES).document(uid)
                 .get()
                 .addOnSuccessListener {
@@ -195,7 +196,7 @@ class TCViewModel @Inject constructor(
                             }
                     else {
                         db.collection(COLLECTION_PREFERENCES).document(uid).set(preferencesData)
-                       // inProgress.value = false
+                        inProgress.value = false
                         getPreferencesData(uid)
                     }
                 }

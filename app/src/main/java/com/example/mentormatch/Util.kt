@@ -95,7 +95,7 @@ fun CommonImage(
 }
 
 enum class Field {
-    TECNOLOGIA, MATEMATICA, ECONOMIA, DESIGN
+    TECNOLOGIA, MATEMATICA, ECONOMIA, DESIGN, TODOS
 }
 
 enum class University {
@@ -107,12 +107,12 @@ enum class Hobbie {
 }
 
 enum class City {
-    SAOPAULO, COTIA, OSASCO
+    SAOPAULO, COTIA, OSASCO, TODOS
 }
 enum class Available {
-    SIM, NAO
+    SIM, NAO, TODOS
 }
 enum class Assignment {
-    APRENDIZ, MENTOR
+    APRENDIZ, MENTOR, TODOS
 }
 

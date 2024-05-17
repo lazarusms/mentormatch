@@ -65,7 +65,7 @@ fun SwipeAppNavigation() {
             SignupScreen(navController, vm)
         }
         composable(DestinationScreen.Search.route) {
-            SearchScreen(navController)
+            SearchScreen(navController, vm)
         }
     }
 }
