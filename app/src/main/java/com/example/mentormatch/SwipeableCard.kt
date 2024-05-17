@@ -11,17 +11,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-/**
- * Enables Tinder like swiping gestures.
- *
- * @param state The current state of the swipeable card. Use [rememberSwipeableCardState] to create.
- * @param onSwiped will be called once a swipe gesture is completed. The given [Direction] will indicate which side the gesture was performed on.
- * @param onSwipeCancel will be called when the gesture is stopped before reaching the minimum threshold to be treated as a full swipe
- * @param blockedDirections the directions which will not trigger a swipe. By default only horizontal swipes are allowed.
- */
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 @ExperimentalSwipeableCardApi
 fun Modifier.swipableCard(
+
     state: SwipeableCardState,
     onSwiped: (Direction) -> Unit,
     onSwipeCancel: () -> Unit = {},

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalPermissionsApi::class, ExperimentalPermissionsApi::class)
+
 package com.example.mentormatch
 
 import android.util.Log
@@ -8,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +24,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,17 +52,28 @@ import androidx.navigation.NavController
 //import com.example.mentormatch.CommonProgressSpinner
 //import com.example.mentormatch.TCViewModel
 //import com.example.mentormatch.data.UserData
-import com.example.mentormatch.Direction
-import com.example.mentormatch.MatchProfile
-import com.example.mentormatch.profiles
-import com.example.mentormatch.rememberSwipeableCardState
-import com.example.mentormatch.swipableCard
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun SwipeCards(navController: NavController, vm: TCViewModel) {
     val userData = vm.userData.value
+    val context = LocalContext.current
+    val postNotificationPermission=
+        rememberPermissionState(permission =  Manifest.permission.POST_NOTIFICATIONS)
+    val matchNotificationService=MatchNotificationService(context)
+    LaunchedEffect(key1 = true ){
+        if(!postNotificationPermission.status.isGranted){
+            postNotificationPermission.launchPermissionRequest()
+        }
+    }
     TransparentSystemBars()
     Column(
         modifier = Modifier
@@ -69,8 +81,8 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             .background(
                 Brush.verticalGradient(
                     listOf(
-                        Color(0xfff68084),
-                        Color(0xffa6c0fe),
+                        Color(0xFFCA4B4F),
+                        Color(0xFF5787FA),
                     )
                 )
             )
@@ -80,7 +92,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             val states = profiles.reversed()
                 .map { it to rememberSwipeableCardState() }
             var hint by remember {
-                mutableStateOf("Arreste para o lado ou pressione o botão")
+                mutableStateOf("Arraste para o lado ou pressione o botão")
             }
             if(states.all { it.second.swipedDirection != null }) {
                 hint = "Não há mais perfis para mostrar"
@@ -130,6 +142,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
 
                             if (conditionsMet >= 2 && matchProfile.available != Available.NAO) {
                                 hint = "Você deu match com ${matchProfile.name}"
+                                matchNotificationService.showBasicNotification(matchProfile.name)
                                 Log.d("MATCH", "matchProfile.name")
                                 Log.d("MATCH", "OCORREU UM MATCH")
                             }
@@ -171,7 +184,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                                 }?.second
 
                             last?.swipe(Direction.Right)
-                            Log.d("MATCH", "OCORREU UM MATCH")
+                         //   Log.d("MATCH", "OCORREU UM MATCH")
                         }
                     },
                     icon = Icons.Rounded.Favorite
@@ -280,4 +293,3 @@ fun Scrim(modifier: Modifier = Modifier) {
             .height(180.dp)
             .fillMaxWidth())
 }
-

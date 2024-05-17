@@ -34,12 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mentormatch.CommonDivider
-import com.example.mentormatch.CommonImage
-import com.example.mentormatch.CommonProgressSpinner
-import com.example.mentormatch.DestinationScreen
-import com.example.mentormatch.TCViewModel
-import com.example.mentormatch.navigateTo
+
 
 @Composable
 fun ProfileScreen(navController: NavController, vm: TCViewModel) {
@@ -77,6 +72,7 @@ fun ProfileScreen(navController: NavController, vm: TCViewModel) {
         Column {
             ProfileContent(
                 modifier = Modifier
+                    .background(Color.White)
                     .weight(1f)
                     .verticalScroll(scrollState)
                     .padding(8.dp),
