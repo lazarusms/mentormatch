@@ -65,6 +65,7 @@ import androidx.annotation.RequiresApi
 @Composable
 fun SwipeCards(navController: NavController, vm: TCViewModel) {
     val userData = vm.userData.value
+    val preferencesData = vm.preferencesData.value
     val context = LocalContext.current
     val postNotificationPermission=
         rememberPermissionState(permission =  Manifest.permission.POST_NOTIFICATIONS)
@@ -89,8 +90,27 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
 //                        .systemBarsPadding()
     ) {
         Box(modifier = Modifier.weight(1f)) {
-            val states = profiles.reversed()
+            var states = profiles.reversed()
                 .map { it to rememberSwipeableCardState() }
+
+
+            val localFilter = preferencesData?.localPreference
+            val assignmentFilter = preferencesData?.assignmentPreference
+            val fieldFilter = preferencesData?.fieldPreference
+
+            // Filtra a prefêrencia por Cidade
+            if (!localFilter.equals("TODOS")) {
+                states = states.filter { it.first.city.toString() == localFilter }
+            }
+            // Filtra a prefêrencia por MENTOR/APRENDIZ
+            if (!assignmentFilter.equals("TODOS")) {
+                states = states.filter { it.first.assignment.toString() == assignmentFilter }
+            }
+            // Filtra a prefêrencia por Área
+            if (!fieldFilter.equals("TODOS")) {
+                states = states.filter { it.first.field.toString() == fieldFilter }
+            }
+
             var hint by remember {
                 mutableStateOf("Arraste para o lado ou pressione o botão")
             }

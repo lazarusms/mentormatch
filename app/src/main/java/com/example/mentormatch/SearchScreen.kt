@@ -313,42 +313,6 @@ fun ScreenContent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp),
-            verticalAlignment = Alignment.Top
-        ) {
-            Text(
-                text = "Disponível:", modifier = Modifier
-                    .width(100.dp)
-                    .padding(8.dp)
-            )
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
-                        selected = available == Available.SIM,
-                        onClick = { onAvailableChange(Available.SIM) })
-                    Text(
-                        text = "Sim",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable { onAvailableChange(Available.SIM) })
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
-                        selected = available == Available.NAO,
-                        onClick = { onAvailableChange(Available.NAO) })
-                    Text(
-                        text = "Não",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable { onAvailableChange(Available.NAO) })
-                }
-            }
-        }
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
