@@ -1,4 +1,4 @@
-package com.example.mentormatch
+package com.example.mentormatch.swipecards
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectDragGestures

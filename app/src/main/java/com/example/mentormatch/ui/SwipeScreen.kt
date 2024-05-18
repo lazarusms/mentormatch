@@ -1,8 +1,9 @@
-@file:OptIn(ExperimentalPermissionsApi::class, ExperimentalPermissionsApi::class)
+@file:OptIn(ExperimentalPermissionsApi::class, ExperimentalPermissionsApi::class,
+    ExperimentalPermissionsApi::class
+)
 
-package com.example.mentormatch
+package com.example.mentormatch.ui
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -60,6 +61,14 @@ import kotlinx.coroutines.launch
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.mentormatch.Available
+import com.example.mentormatch.swipecards.Direction
+import com.example.mentormatch.MatchNotificationService
+import com.example.mentormatch.swipecards.MatchProfile
+import com.example.mentormatch.TCViewModel
+import com.example.mentormatch.swipecards.profiles
+import com.example.mentormatch.swipecards.rememberSwipeableCardState
+import com.example.mentormatch.swipecards.swipableCard
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -69,7 +78,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
     val context = LocalContext.current
     val postNotificationPermission=
         rememberPermissionState(permission =  Manifest.permission.POST_NOTIFICATIONS)
-    val matchNotificationService=MatchNotificationService(context)
+    val matchNotificationService= MatchNotificationService(context)
     LaunchedEffect(key1 = true ){
         if(!postNotificationPermission.status.isGranted){
             postNotificationPermission.launchPermissionRequest()
@@ -82,8 +91,9 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             .background(
                 Brush.verticalGradient(
                     listOf(
-                        Color(0xFFCA4B4F),
-                        Color(0xFF5787FA),
+                        Color(0xFF6385AA),
+                        Color(0xFF4F759F),
+                        Color(0xFF225081),
                     )
                 )
             )
@@ -112,7 +122,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             }
 
             var hint by remember {
-                mutableStateOf("Arraste para o lado ou pressione o botão")
+                mutableStateOf("Arraste para o lado ou clique no botão")
             }
             if(states.all { it.second.swipedDirection != null }) {
                 hint = "Não há mais perfis para mostrar"
@@ -125,7 +135,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                 Modifier
                     .padding(24.dp)
                     .fillMaxSize()
-                    .aspectRatio(1f)) {
+                    .aspectRatio(0.7f)) {
                 states.forEach { (matchProfile, state) ->
                     if (state.swipedDirection == null) {
                         ProfileCard(
@@ -135,22 +145,16 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                                     state = state,
                                     blockedDirections = listOf(Direction.Down),
                                     onSwiped = {
-                                        // swipes are handled by the LaunchedEffect
-                                        // so that we track button clicks & swipes
-                                        // from the same place
+
                                     },
                                     onSwipeCancel = {
-                                        Log.d("Swipeable-Card", "Cancelled swipe")
-                                        hint = "You canceled the swipe"
+
                                     }
                                 ),
                             matchProfile = matchProfile
                         )
                     }
                     LaunchedEffect(matchProfile, state.swipedDirection) {
-                     //   if (state.swipedDirection != null) {
-                        //      hint = "You swiped ${stringFrom(state.swipedDirection!!)}"
-                        // }
                         if (state.swipedDirection == Direction.Right) {
 
                             val conditionsMet = listOf(
@@ -161,14 +165,10 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                             ).count { it }
 
                             if (conditionsMet >= 2 && matchProfile.available != Available.NAO) {
-                                hint = "Você deu match com ${matchProfile.name}"
                                 matchNotificationService.showBasicNotification(matchProfile.name)
-                                Log.d("MATCH", "matchProfile.name")
-                                Log.d("MATCH", "OCORREU UM MATCH")
                             }
                             else {
                                 hint = ""
-                                Log.d("MATCH", "NÃO OCORREU UM MATCH")
                             }
                            // hint = ""
                         }
@@ -204,10 +204,10 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                                 }?.second
 
                             last?.swipe(Direction.Right)
-                         //   Log.d("MATCH", "OCORREU UM MATCH")
                         }
                     },
                     icon = Icons.Rounded.Favorite
+
                 )
             }
         }
@@ -225,13 +225,14 @@ private fun CircleButton(
     IconButton(
         modifier = Modifier
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
+            .background(Color.White)
             .size(56.dp)
-            .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape),
+            .border(2.dp, Color(0xFFECE8E8)),
         onClick = onClick
     ) {
         Icon(icon, null,
-            tint = MaterialTheme.colorScheme.onPrimary)
+            tint = Color(0xFF203164)
+        )
     }
 }
 
@@ -313,3 +314,5 @@ fun Scrim(modifier: Modifier = Modifier) {
             .height(180.dp)
             .fillMaxWidth())
 }
+
+

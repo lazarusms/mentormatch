@@ -1,7 +1,13 @@
-package com.example.mentormatch
+package com.example.mentormatch.swipecards
 
 import androidx.annotation.DrawableRes
+import com.example.mentormatch.Assignment
+import com.example.mentormatch.Available
+import com.example.mentormatch.City
+import com.example.mentormatch.Field
+import com.example.mentormatch.Hobbie
 import com.example.mentormatch.R
+import com.example.mentormatch.University
 
 data class MatchProfile(
     val name: String,

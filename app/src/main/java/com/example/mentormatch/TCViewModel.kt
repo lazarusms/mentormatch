@@ -77,13 +77,11 @@ class TCViewModel @Inject constructor(
         db.collection(COLLECTION_USER).document(uid)
             .addSnapshotListener { value, error ->
                 if (error != null)
-                    handleException(error, "Cannot retrieve user data")
+                    handleException(error, "Erro ao trazer os dados do usuário")
                 if (value != null) {
                     val user = value.toObject<UserData>()
                     userData.value = user
                     inProgress.value = false
-                  //  populateCards()
-                  //  populateChats()
                 }
             }
     }
@@ -92,13 +90,11 @@ class TCViewModel @Inject constructor(
         db.collection(COLLECTION_PREFERENCES).document(uid)
             .addSnapshotListener { value, error ->
                 if (error != null)
-                    handleException(error, "Cannot retrieve user data")
+                    handleException(error, "Erro ao trazer preferencias")
                 if (value != null) {
                     val preferences = value.toObject<PreferencesData>()
                     preferencesData.value = preferences
                     inProgress.value = false
-                    //  populateCards()
-                    //  populateChats()
                 }
             }
     }
@@ -145,12 +141,10 @@ class TCViewModel @Inject constructor(
                     if (it.exists())
                         it.reference.update(userData.toMap())
                             .addOnSuccessListener {
-                             //   this.userData.value = userData
                                 inProgress.value = false
-                               // populateCards()
                             }
                             .addOnFailureListener {
-                                handleException(it, "Cannot update user")
+                                handleException(it, "Não foi possível atualizar o usuário")
                             }
                     else {
                         db.collection(COLLECTION_USER).document(uid).set(userData)
@@ -187,12 +181,10 @@ class TCViewModel @Inject constructor(
                     if (it.exists())
                         it.reference.update(preferencesData.toMap())
                             .addOnSuccessListener {
-                                //   this.userData.value = userData
                                 inProgress.value = false
-                                // populateCards()
                             }
                             .addOnFailureListener {
-                                handleException(it, "Cannot update user")
+                                handleException(it, "Não foi possível atualizar as preferências")
                             }
                     else {
                         db.collection(COLLECTION_PREFERENCES).document(uid).set(preferencesData)
@@ -201,7 +193,7 @@ class TCViewModel @Inject constructor(
                     }
                 }
                 .addOnFailureListener {
-                    handleException(it, "Cannot create user")
+                    handleException(it, "Ex")
                 }
         }
     }
@@ -209,7 +201,7 @@ class TCViewModel @Inject constructor(
 
     fun onLogin(email: String, pass: String) {
         if (email.isEmpty() or pass.isEmpty()) {
-            handleException(customMessage = "Please fill in all fields")
+            handleException(customMessage = "Por favor, preencha todos os campos")
             return
         }
         inProgress.value = true
@@ -222,10 +214,10 @@ class TCViewModel @Inject constructor(
                         getUserData(it)
                     }
                 } else
-                    handleException(task.exception, "Login failed")
+                    handleException(task.exception, "Erro de login")
             }
             .addOnFailureListener {
-                handleException(it, "Login failed")
+                handleException(it, "Erro de login")
             }
     }
 

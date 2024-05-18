@@ -1,4 +1,4 @@
-package com.example.mentormatch
+package com.example.mentormatch.swipecards
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec

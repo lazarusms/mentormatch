@@ -1,14 +1,14 @@
-package com.example.mentormatch
+package com.example.mentormatch.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
@@ -31,7 +31,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.mentormatch.CheckSignedIn
+import com.example.mentormatch.CommonProgressSpinner
+import com.example.mentormatch.DestinationScreen
+import com.example.mentormatch.R
 import com.example.mentormatch.TCViewModel
+import com.example.mentormatch.navigateTo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,12 +60,12 @@ fun SignupScreen(navController: NavController, vm: TCViewModel) {
             val focus = LocalFocusManager.current
 
             Image(
-                painter = painterResource(id = R.drawable.fire),
+                painter = painterResource(id = R.drawable.grouplogo),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(200.dp)
+                    .size(200.dp)
+                    .width(100.dp)
                     .padding(top = 16.dp)
-                    .padding(8.dp)
             )
 
             Text(

@@ -1,4 +1,4 @@
-package com.example.mentormatch
+package com.example.mentormatch.ui
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -34,6 +34,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mentormatch.Available
+import com.example.mentormatch.City
+import com.example.mentormatch.CommonDivider
+import com.example.mentormatch.CommonImage
+import com.example.mentormatch.CommonProgressSpinner
+import com.example.mentormatch.DestinationScreen
+import com.example.mentormatch.Field
+import com.example.mentormatch.Hobbie
+import com.example.mentormatch.TCViewModel
+import com.example.mentormatch.University
+import com.example.mentormatch.navigateTo
 
 
 @Composable

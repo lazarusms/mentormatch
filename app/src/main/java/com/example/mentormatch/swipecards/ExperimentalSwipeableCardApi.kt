@@ -1,3 +1,3 @@
-package com.example.mentormatch
+package com.example.mentormatch.swipecards
 
 annotation class ExperimentalSwipeableCardApi()

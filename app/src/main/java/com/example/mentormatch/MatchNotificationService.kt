@@ -14,7 +14,7 @@ class MatchNotificationService(
         val notification=NotificationCompat.Builder(context,"water_notification")
             .setContentTitle("Novo Match!")
             .setContentText("Você acabou de dar match com $nome")
-            .setSmallIcon(R.drawable.fire)
+            .setSmallIcon(R.drawable.grouplogo)
             .setPriority(NotificationManager.IMPORTANCE_HIGH)
             .setAutoCancel(true)
             .build()

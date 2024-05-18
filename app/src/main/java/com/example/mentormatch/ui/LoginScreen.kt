@@ -1,4 +1,4 @@
-package com.example.mentormatch
+package com.example.mentormatch.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
@@ -56,17 +57,17 @@ fun LoginScreen(navController: NavController, vm: TCViewModel) {
             val focus = LocalFocusManager.current
 
             Image(
-                painter = painterResource(id = R.drawable.fire),
+                painter = painterResource(id = R.drawable.grouplogo),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(200.dp)
+                    .size(200.dp)
+                    .width(100.dp)
                     .padding(top = 16.dp)
-                    .padding(8.dp)
             )
 
             Text(
                 text = "Login",
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(2.dp),
                 fontSize = 30.sp,
                 fontFamily = FontFamily.SansSerif
             )
@@ -81,7 +82,7 @@ fun LoginScreen(navController: NavController, vm: TCViewModel) {
                 value = passwordState.value,
                 onValueChange = { passwordState.value = it },
                 modifier = Modifier.padding(8.dp),
-                label = { Text(text = "Password") },
+                label = { Text(text = "Senha") },
                 visualTransformation = PasswordVisualTransformation()
             )
 
@@ -98,7 +99,7 @@ fun LoginScreen(navController: NavController, vm: TCViewModel) {
                 Text(text = "LOGIN")
             }
 
-            Text(text = "New here? Go to signup ->",
+            Text(text = "Novo aqui? Realize o cadastro ->",
                 color = Color.Blue,
                 modifier = Modifier
                     .padding(8.dp)

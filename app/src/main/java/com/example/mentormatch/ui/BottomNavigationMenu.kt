@@ -1,4 +1,4 @@
-package com.example.mentormatch
+package com.example.mentormatch.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,9 +15,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mentormatch.DestinationScreen
+import com.example.mentormatch.R
+import com.example.mentormatch.navigateTo
 
 enum class BottomNavigationItem(val icon: Int, val navDestination: DestinationScreen) {
-    SWIPE(R.drawable.baseline_people, DestinationScreen.Swipe),
+    SWIPE(R.drawable.group, DestinationScreen.Swipe),
     PROFILE(R.drawable.baseline_profile, DestinationScreen.Profile),
     SEARCH(R.drawable.baseline_manage_search, DestinationScreen.Search)
 }
@@ -37,7 +40,7 @@ fun BottomNavigationMenu(selectedItem: BottomNavigationItem, navController: NavC
                 .clickable {
                     navigateTo(navController, item.navDestination.route)
                 },
-               colorFilter = if (item == selectedItem) ColorFilter.tint(Color.Black) else ColorFilter.tint(Color.Gray))
+               colorFilter = if (item == selectedItem) ColorFilter.tint(Color(0xFF4F759F )) else ColorFilter.tint(Color.Gray))
         }
     }
 }
