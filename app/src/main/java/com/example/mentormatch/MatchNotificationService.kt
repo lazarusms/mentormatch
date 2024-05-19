@@ -6,12 +6,14 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import kotlin.random.Random
 
+
+// Serviço responsável por exibir notificações relacionadas a novos matches.
 class MatchNotificationService(
     private val context:Context
 ){
     private val notificationManager=context.getSystemService(NotificationManager::class.java)
     fun showBasicNotification(nome: String){
-        val notification=NotificationCompat.Builder(context,"water_notification")
+        val notification=NotificationCompat.Builder(context,"match_notification")
             .setContentTitle("Novo Match!")
             .setContentText("Você acabou de dar match com $nome")
             .setSmallIcon(R.drawable.grouplogo)

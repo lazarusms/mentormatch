@@ -9,6 +9,8 @@ import com.example.mentormatch.Hobbie
 import com.example.mentormatch.R
 import com.example.mentormatch.University
 
+// Classe responsável por representar perfis exibidos nos cartões de "swipe"
+// Os dados desses perfis poderiam ser provenientes do Firebase da collection de user, mas neste caso eu optei por criá-los mockados dessa maneira
 data class MatchProfile(
     val name: String,
     val bio: String,

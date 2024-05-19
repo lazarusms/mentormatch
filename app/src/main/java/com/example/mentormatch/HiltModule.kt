@@ -12,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+// Módulo Dagger Hilt para fornecer instâncias dos objetos Firebase necessários para autenticação, banco de dados e armazenamento.
 @Module
 @InstallIn(ViewModelComponent::class)
 class HiltModule {

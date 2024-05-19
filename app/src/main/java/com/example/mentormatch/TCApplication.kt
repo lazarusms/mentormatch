@@ -10,9 +10,10 @@ import dagger.hilt.android.HiltAndroidApp
 class TCApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        // Responsável por criar o canal de notificação
         val notificationChannel= NotificationChannel(
-            "water_notification",
-            "Water",
+            "match_notification",
+            "Match",
             NotificationManager.IMPORTANCE_HIGH
         )
         val notificationManager=getSystemService(NOTIFICATION_SERVICE) as NotificationManager

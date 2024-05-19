@@ -100,6 +100,9 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
 //                        .systemBarsPadding()
     ) {
         Box(modifier = Modifier.weight(1f)) {
+            // Recupera os perfis e depois verifica se é necessário filtrá-los
+            // Os perfis seriam normalmente recuperados do Firebase, mas neste caso são perfis mockados criados localmente
+            // (como explicado na MatchProfile.kt)
             var states = profiles.reversed()
                 .map { it to rememberSwipeableCardState() }
 
@@ -163,7 +166,8 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                                 userData?.hobbie == matchProfile.hobbie.toString(),
                                 userData?.city == matchProfile.city.toString(),
                             ).count { it }
-
+                            // Condição criada para satisfazer o item de match, como os dados são mockados e não existe a possibilidade
+                            // de match de ambas as partes, foi criado essa lógica simples para que fosse recebida a notificação de match
                             if (conditionsMet >= 2 && matchProfile.available != Available.NAO) {
                                 matchNotificationService.showBasicNotification(matchProfile.name)
                             }

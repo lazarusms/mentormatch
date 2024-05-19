@@ -11,6 +11,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
+// Responsável pela funcionalidade de swipe
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 @ExperimentalSwipeableCardApi
 fun Modifier.swipableCard(

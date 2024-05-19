@@ -18,6 +18,7 @@ enum class Direction {
     Left, Right, Up, Down
 }
 
+// Gerencia o estado de swipe
 @Composable
 fun rememberSwipeableCardState(): SwipeableCardState {
     val screenWidth = with(LocalDensity.current) {
@@ -38,11 +39,6 @@ class SwipeableCardState(
 ) {
     val offset = Animatable(offset(0f, 0f), Offset.VectorConverter)
 
-    /**
-     * The [Direction] the card was swiped at.
-     *
-     * Null value means the card has not been swiped fully yet.
-     */
     var swipedDirection: Direction? by mutableStateOf(null)
         private set
 

@@ -52,6 +52,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Função responsável por controlar a navegação do aplicativo.
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun SwipeAppNavigation() {

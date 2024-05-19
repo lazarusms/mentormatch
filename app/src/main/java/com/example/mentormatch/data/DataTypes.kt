@@ -1,5 +1,6 @@
 package com.example.mentormatch.data
 
+// Representa os dados do usuário recuperados do Firebase Firestore
 data class UserData(
     var userId:     String? = "",
     var name:       String? = "",

@@ -24,6 +24,8 @@ import javax.inject.Inject
 import com.example.mentormatch.data.UserData
 
 
+// Classe responsável por gerenciar a lógica de autenticação e manipulação de dados com o Firebase (backend).
+// Utiliza o Firebase Authentication, Firestore e Storage para armazenamento e gerenciamento de dados - optei pelo Firebase devido a praticidade
 @HiltViewModel
 class TCViewModel @Inject constructor(
     val auth: FirebaseAuth,
