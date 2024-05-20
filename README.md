@@ -21,7 +21,7 @@ Projeto desenvolvido para o challenge do 2o semestre da FIAP em parceria com a D
 ### Como utilizar
 ---
 
-- Rodar o Projeto: Clone o repositório e rode o projeto no Android Studio ou [baixe o APK](https://github.com/lazarusms/mentormatch/blob/main/install/app-debug.apk) disponível.
+- Rodar o Projeto: Clone o repositório e rode o projeto no Android Studio ou [baixe o APK](https://github.com/lazarusms/mentormatch/blob/main/install/app-debug.apk) disponível (pasta install).
 - Cadastro ou Login: Crie uma nova conta ou entre com as credenciais padrão:
     - Email: fiap@fiap.com.br
     - Senha: 123456
