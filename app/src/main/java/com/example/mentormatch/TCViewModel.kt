@@ -214,6 +214,7 @@ class TCViewModel @Inject constructor(
                     inProgress.value = false
                     auth.currentUser?.uid?.let {
                         getUserData(it)
+                        getPreferencesData(it)
                     }
                 } else
                     handleException(task.exception, "Erro de login")
@@ -262,7 +263,7 @@ class TCViewModel @Inject constructor(
             localPreference = localPreference,
             fieldPreference = fieldPreference,
             assignmentPreference = assignmentPreference,
-            availablePreference = availablePreference,
+            availablePreference = availablePreference
         )
     }
     fun uploadProfileImage(uri: Uri) {

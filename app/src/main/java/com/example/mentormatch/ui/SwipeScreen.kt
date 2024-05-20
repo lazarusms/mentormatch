@@ -60,6 +60,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 import android.Manifest
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.mentormatch.Available
 import com.example.mentormatch.swipecards.Direction
@@ -75,6 +76,9 @@ import com.example.mentormatch.swipecards.swipableCard
 fun SwipeCards(navController: NavController, vm: TCViewModel) {
     val userData = vm.userData.value
     val preferencesData = vm.preferencesData.value
+    val localFilter = preferencesData?.localPreference
+    val assignmentFilter = preferencesData?.assignmentPreference
+    val fieldFilter = preferencesData?.fieldPreference
     val context = LocalContext.current
     val postNotificationPermission=
         rememberPermissionState(permission =  Manifest.permission.POST_NOTIFICATIONS)
@@ -106,21 +110,21 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             var states = profiles.reversed()
                 .map { it to rememberSwipeableCardState() }
 
-
-            val localFilter = preferencesData?.localPreference
-            val assignmentFilter = preferencesData?.assignmentPreference
-            val fieldFilter = preferencesData?.fieldPreference
+            states.forEach { state ->
+                Log.d("TESTE", "Perfil: ${state.first.name}")
+            }
+            // Log.d("TESTE", "Perfil: ${state.first.name}")
 
             // Filtra a prefêrencia por Cidade
-            if (!localFilter.equals("TODOS")) {
+            if (localFilter != null && localFilter != "TODOS") {
                 states = states.filter { it.first.city.toString() == localFilter }
             }
             // Filtra a prefêrencia por MENTOR/APRENDIZ
-            if (!assignmentFilter.equals("TODOS")) {
+            if (assignmentFilter != null && assignmentFilter != "TODOS") {
                 states = states.filter { it.first.assignment.toString() == assignmentFilter }
             }
             // Filtra a prefêrencia por Área
-            if (!fieldFilter.equals("TODOS")) {
+            if (fieldFilter != null && fieldFilter != "TODOS") {
                 states = states.filter { it.first.field.toString() == fieldFilter }
             }
 
@@ -174,7 +178,7 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
                             else {
                                 hint = ""
                             }
-                           // hint = ""
+                            // hint = ""
                         }
                     }
                 }
