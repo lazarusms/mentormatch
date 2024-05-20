@@ -25,3 +25,14 @@ Projeto desenvolvido para o challenge do 2o semestre da FIAP em parceria com a D
 - Cadastro ou Login: Crie uma nova conta ou entre com as credenciais padrão:
     - Email: fiap@fiap.com.br
     - Senha: 123456
+
+
+- **Nota**: Caso opte por realizar um novo cadastro, após completar o cadastro, retorne à tela de login e use suas novas credenciais para acessar o aplicativo.
+
+
+
+
+
+
+
+
