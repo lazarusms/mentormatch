@@ -110,9 +110,9 @@ fun SwipeCards(navController: NavController, vm: TCViewModel) {
             var states = profiles.reversed()
                 .map { it to rememberSwipeableCardState() }
 
-            states.forEach { state ->
-                Log.d("TESTE", "Perfil: ${state.first.name}")
-            }
+        //    states.forEach { state ->
+          //      Log.d("TESTE", "Perfil: ${state.first.name}")
+           // }
             // Log.d("TESTE", "Perfil: ${state.first.name}")
 
             // Filtra a prefêrencia por Cidade
